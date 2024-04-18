@@ -1,7 +1,8 @@
 create database pl_subquery;
+
 create type gender as enum ('Female','Male');
 create type specialization
-    as enum ('DERMOTOLOGIST','CARDIOLOGIST','ALLERGIST','ORTOPEDIST','PSYCHIATRIST');
+as enum ('DERMOTOLOGIST','CARDIOLOGIST','ALLERGIST','ORTOPEDIST','PSYCHIATRIST');
 
 create table hospitals
 (
@@ -193,9 +194,11 @@ select *
 from patients
 where doctor_id in (select id from doctors where specialization = 'CARDIOLOGIST');--successfully
 
--- 15.Получить список всех врачей, работающих в отделении 'ORTOPEDIST' и обслуживающих больше 2 пациентов
+-- 15.Получить список всех врачей, работающих в отделении 'Neurology' и обслуживающих больше 2 пациентов
 select *
-from doctors
-where specialization = 'ORTOPEDIST'
-  and id in (select p.doctor_id from patients p group by doctor_id having count(*) > 2); --successfully
+from doctors d
+where  d.department_id  in (select d.id from  departments d where department_name like 'Neurology' ); --successfully
+
+
+
 
